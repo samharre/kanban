@@ -13,6 +13,8 @@ API_AUDIENCE = 'kanban'
 AuthError Exception
 A standardized way to communicate auth failure modes
 '''
+
+
 class AuthError(Exception):
     def __init__(self, error, status_code):
         self.error = error
@@ -118,6 +120,21 @@ def check_permissions(permission, payload):
         }, 403)
 
     return True
+
+
+def get_user_id():
+    try:
+        user_id = request.headers.get('userId', None)
+        if not user_id:
+            auth_header = request.headers.get('Authorization', None)
+            if auth_header:
+                token = get_token_auth_header()
+                payload = verify_decode_jwt(token)
+                user_id = payload.get('sub')
+
+        return user_id
+    except:
+        raise
 
 
 def requires_auth(permission=''):

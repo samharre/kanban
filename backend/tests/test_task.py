@@ -5,19 +5,35 @@ import json
 from src import create_app
 from src.models.base import db
 from src.models.phase import Phase
+from src.models.task import Task
 
 from . import check_status_code_400, check_status_code_404, check_status_code_405, check_status_code_409, check_status_code_422
 
 MANAGER_TOKEN = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFtaGF5UUdIODhfbnF0Ql9jMFVPbyJ9.eyJpc3MiOiJodHRwczovL3NhbWhhcnJlLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjhiN2NkYTQzNjE0MjAwNzhlZGM4YTMiLCJhdWQiOlsia2FuYmFuIiwiaHR0cHM6Ly9zYW1oYXJyZS51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjA3MDE1NzcyLCJleHAiOjE2MDcxMDIxNzIsImF6cCI6InBHb2N5TUk2bFFkTzNWM2dBZWRpVzdrU0lxOFpSRUpqIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTpwaGFzZXMiLCJkZWxldGU6dGFza3MiLCJwYXRjaDpwaGFzZXMiLCJwYXRjaDp0YXNrcyIsInBvc3Q6cGhhc2VzIiwicG9zdDp0YXNrcyJdfQ.GYNGXAgX96Y6K5saFosO84tlrSUWAT7V9eaZUL2P3cqq51bhLDOIW2xqoB7qt1ykoskmFGCf_rZgJiwwVf89RDgbv34TRR_aLzZgUAQ_Q5anHgP6WZTWVIBWN5lW8NvERxDnTPxgFCdRzwCf3Ys3mlhHzGR-23OluYrHYToy2_B0XQy6qL_P9T3GgJ2D62oaa9DGelHCYvMWLp6Uw2bPpKy1uDqXll-DaMDg4glGq0eDGF4jovqHWbwGHTsORwZrLNfNRVeqhNKOr1ZBWD0TNXaIH3gIFBz8X_9DqQ0caR6ezrvQgSFTuxKBRF3kkRV0RX3lO8oh4CW_FBbmcSKgWg'
 
 
-class PhaseTestCase(unittest.TestCase):
-    '''This class represents the phase api test case'''
+class TaskTestCase(unittest.TestCase):
+    '''This class represents the task api test case'''
 
     def create_phase(self, title):
         res = self.client().post(
             '/phases',
             json={
+                'title': title
+            },
+            headers={
+                'Authorization': MANAGER_TOKEN
+            }
+        )
+
+        data = json.loads(res.data)
+        return data['phase']
+
+    def create_task(self, phase_id, title):
+        res = self.client().post(
+            '/tasks',
+            json={
+                'phase_id': phase_id,
                 'title': title
             },
             headers={
@@ -42,59 +58,57 @@ class PhaseTestCase(unittest.TestCase):
 
     # ---------- Testes ---------- #
 
-    def test_get_phases(self):
-        self.create_phase('Backlog')
+    def test_get_tasks(self):
+        phase = self.create_phase('Backlog')
+        self.create_task(phase['id'], 'Tasks endpoints')
+        self.create_task(
+            phase['id'], 'Implements authentication using Auth0 on the server')
 
-        res = self.client().get('/phases')
+        res = self.client().get(
+            '/tasks',
+            headers={
+                'Authorization': MANAGER_TOKEN
+            }
+        )
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(len(data['phases']), 1)
+        self.assertEqual(len(data['tasks']), 2)
 
-    def test_get_phases_by_id(self):
-        self.create_phase('Backlog')
+    def test_get_tasks_by_phase(self):
+        phase = self.create_phase('Backlog')
+        self.create_task(phase['id'], 'Tasks endpoints')
 
-        res = self.client().get('/phases/1')
+        phase = self.create_phase('To Do')
+        self.create_task(
+            phase['id'], 'Implements authentication using Auth0 on the server')
+        self.create_task(phase['id'], 'Creating data to test phases and tasks')
+
+        res = self.client().get(
+            '/phases/1/tasks',
+            headers={
+                'Authorization': MANAGER_TOKEN
+            }
+        )
+        data = json.loads(res.data)
+        tasks = data['tasks']
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(tasks[0]['phase_id'], 1)
+        self.assertEqual(len(tasks), 1)
+
+    def test_create_new_task(self):
+        phase = self.create_phase('Backlog')
+        res = self.create_task(phase['id'], 'Tasks endpoints')
+
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['phase'].get('id'), 1)
+        self.assertEqual(data['task'].get('title'), 'Tasks endpoints')
 
-    def test_get_phases_with_tasks(self):
-        self.create_phase('Backlog')
-
-        res = self.client().get('/phases-detail')
-        data = json.loads(res.data)
-
-        phases = data['phases']
-        self.assertEqual(res.status_code, 200)
-        self.assertEqual(len(phases), 1)
-        self.assertEqual(len(phases[0].get('tasks')), 0)
-
-    def test_get_phases_by_id_with_tasks(self):
-        self.create_phase('Backlog')
-
-        res = self.client().get('/phases-detail/1')
-        data = json.loads(res.data)
-
-        self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['phase'].get('id'), 1)
-        self.assertEqual(len(data['phase'].get('tasks')), 0)
-
-    def test_create_new_phase(self):
-        res = self.create_phase('To Do')
-        data = json.loads(res.data)
-
-        self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['phase'].get('title'), 'To Do')
-
-        res = self.client().get(f'/phases/1')
-        data = json.loads(res.data)
-        self.assertEqual(data['phase'].get('title'), 'To Do')
-
-    def test_400_create_phase_without_body(self):
+    def test_400_create_task_without_body(self):
         res = self.client().post(
-            '/phases',
+            '/tasks',
             headers={
                 'Authorization': MANAGER_TOKEN
             }
@@ -102,10 +116,13 @@ class PhaseTestCase(unittest.TestCase):
         data = json.loads(res.data)
         check_status_code_400(self, res.status_code, data)
 
-    def test_422_create_phase_without_title(self):
+    def test_422_create_task_without_title_or_phase_id(self):
+        # Task without title
+        phase = self.create_phase('Backlog')
         res = self.client().post(
-            '/phases',
+            '/tasks',
             json={
+                'phase_id': phase['id'],
                 'title': ''
             },
             headers={
@@ -115,36 +132,44 @@ class PhaseTestCase(unittest.TestCase):
         data = json.loads(res.data)
         check_status_code_422(self, res.status_code, data)
 
-    def test_409_create_new_phase_duplicated_title(self):
-        res = self.create_phase('Backlog')
-        res = self.create_phase('Backlog')
-        data = json.loads(res.data)
-
-        check_status_code_409(self, res.status_code, data)
-
-    def test_405_create_new_phase_passing_id(self):
+        # Task without phase_id
         res = self.client().post(
-            '/phases/1',
+            '/tasks',
             json={
-                'title': 'To Do'
+                'phase_id': None,
+                'title': 'Test test_422_create_task_without_title_or_phase_id'
             },
             headers={
                 'Authorization': MANAGER_TOKEN
             }
         )
         data = json.loads(res.data)
+        check_status_code_422(self, res.status_code, data)
 
+    def test_405_create_new_phase_passing_id(self):
+        res = self.client().post(
+            '/tasks/1',
+            json={
+                'title': 'Test test_405_create_new_phase_passing_id'
+            },
+            headers={
+                'Authorization': MANAGER_TOKEN
+            }
+        )
+        data = json.loads(res.data)
         check_status_code_405(self, res.status_code, data)
 
-    def test_update_phase(self):
-        res = self.create_phase('Backlog')
+    def test_update_task(self):
+        phase = self.create_phase('Backlog')
+
+        res = self.create_task(phase['id'], 'Tasks endpoints')
         data = json.loads(res.data)
 
-        id = data['phase'].get('id')
+        id = data['task'].get('id')
         res = self.client().patch(
-            f'/phases/{id}',
+            f'/tasks/{id}',
             json={
-                'title': 'Backlog - Test'
+                'title': 'Tasks endpoints - Test'
             },
             headers={
                 'Authorization': MANAGER_TOKEN
@@ -153,19 +178,11 @@ class PhaseTestCase(unittest.TestCase):
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['phase'].get('title'), 'Backlog - Test')
+        self.assertEqual(data['task'].get('title'), 'Tasks endpoints - Test')
 
-        res = self.client().get(f'/phases/{id}')
-        data = json.loads(res.data)
-        self.assertEqual(data['phase'].get('title'), 'Backlog - Test')
-
-    def test_404_update_phase_inexistent_id(self):
-        res = self.create_phase('Backlog')
-        data = json.loads(res.data)
-
-        id = data['phase'].get('id') + 1
+    def test_404_update_task_id_inexistent(self):
         res = self.client().patch(
-            f'/phases/{id}',
+            f'/tasks/10',
             json={
                 'title': 'Trying'
             },
@@ -176,13 +193,15 @@ class PhaseTestCase(unittest.TestCase):
         data = json.loads(res.data)
         check_status_code_404(self, res.status_code, data)
 
-    def test_400_update_phase_without_body(self):
-        res = self.create_phase('Backlog')
+    def test_400_update_task_without_body(self):
+        phase = self.create_phase('Backlog')
+
+        res = self.create_task(phase['id'], 'Tasks endpoints')
         data = json.loads(res.data)
 
-        id = data['phase'].get('id')
+        id = data['task'].get('id')
         res = self.client().patch(
-            f'/phases/{id}',
+            f'/tasks/{id}',
             headers={
                 'Authorization': MANAGER_TOKEN
             }
@@ -190,15 +209,17 @@ class PhaseTestCase(unittest.TestCase):
         data = json.loads(res.data)
         check_status_code_400(self, res.status_code, data)
 
-    def test_422_update_phase_without_title_and_order(self):
-        res = self.create_phase('Backlog')
+    def test_422_update_task_without_phase_id_and_order(self):
+        phase = self.create_phase('Backlog')
+
+        res = self.create_task(phase['id'], 'Tasks endpoints')
         data = json.loads(res.data)
 
-        id = data['phase'].get('id')
+        id = data['task'].get('id')
         res = self.client().patch(
             f'/phases/{id}',
             json={
-                'title': '',
+                'phase_id': None,
                 'order': ''
             },
             headers={
@@ -208,34 +229,17 @@ class PhaseTestCase(unittest.TestCase):
         data = json.loads(res.data)
         check_status_code_422(self, res.status_code, data)
 
-    def test_409_update_phase_duplicating(self):
-        self.create_phase('Backlog')
-        res = self.create_phase('To Do')
+    def test_update_order_task_same_phase(self):
+        phase = self.create_phase('Backlog')
+        phase_id = phase['id']
+        self.create_task(phase_id, 'Task A')
+        self.create_task(
+            phase_id, 'Task B')
+        self.create_task(phase_id, 'Task C')
+        res = self.create_task(phase_id, 'Task D')
 
         data = json.loads(res.data)
-        id = data['phase'].get('id')
-
-        res = self.client().patch(
-            f'/phases/{id}',
-            json={
-                'title': 'Backlog',
-                'order': 2
-            },
-            headers={
-                'Authorization': MANAGER_TOKEN
-            }
-        )
-        data = json.loads(res.data)
-        check_status_code_409(self, res.status_code, data)
-
-    def test_update_order_phases(self):
-        self.create_phase('Backlog')
-        self.create_phase('Doing')
-        self.create_phase('Code Review')
-        res = self.create_phase('To Do')
-
-        data = json.loads(res.data)
-        id = data['phase'].get('id')
+        id = data['task'].get('id')
 
         res = self.client().patch(
             f'/phases/{id}',
@@ -247,46 +251,40 @@ class PhaseTestCase(unittest.TestCase):
             }
         )
 
-        res = self.client().get(f'/phases')
+        res = self.client().get(f'/tasks')
         data = json.loads(res.data)
-        phases = data['phases']
+        tasks = data['tasks']
 
-        for phase in phases:
-            if phase['title'].lower() == 'backlog':
+        for task in tasks:
+            if task['title'].lower() == 'task a':
                 self.assertEqual(phase['order'], 1)
-            elif phase['title'].lower() == 'to do':
+            elif task['title'].lower() == 'task d':
                 self.assertEqual(phase['order'], 2)
-            elif phase['title'].lower() == 'doing':
+            elif task['title'].lower() == 'task c':
                 self.assertEqual(phase['order'], 3)
             else:
                 self.assertEqual(phase['order'], 4)
 
-    def test_delete_phase(self):
-        res = self.create_phase('Backlog')
+    def test_delete_task(self):
+        phase = self.create_phase('Backlog')
+
+        res = self.create_task(phase['id'], 'Task A')
         data = json.loads(res.data)
-        id = data['phase'].get('id')
+        id = data['task'].get('id')
 
         res = self.client().delete(
-            f'/phases/{id}',
+            f'/tasks/{id}',
             headers={
                 'Authorization': MANAGER_TOKEN
             }
         )
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['phase_deleted'], id)
+        self.assertEqual(data['task_deleted'], id)
 
-        res = self.client().get(f'/phases/{id}')
-        data = json.loads(res.data)
-        check_status_code_404(self, res.status_code, data)
-
-    def test_404_delete_phase_inexistent_id(self):
-        res = self.create_phase('Backlog')
-        data = json.loads(res.data)
-        id = data['phase'].get('id') + 1
-
+    def test_404_delete_task_inexistent_id(self):
         res = self.client().delete(
-            f'/phases/{id}',
+            f'/tasks/10',
             headers={
                 'Authorization': MANAGER_TOKEN
             }
