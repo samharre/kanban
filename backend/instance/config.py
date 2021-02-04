@@ -4,7 +4,7 @@ import os
 class Config(object):
     DEBUG = False
     CSRF_ENABLED = True
-    SQLALCHEMY_DATABASE_URI = 'postgresql://localhost:5432/kanban'
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URI')
 
 
 class DevelopmentConfig(Config):
@@ -14,7 +14,7 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'postgresql://localhost:5432/kanban_test'
+    SQLALCHEMY_DATABASE_URI = os.getenv('TEST_DATABASE_URI')
 
 
 class StagingConfig(Config):
@@ -26,10 +26,6 @@ class ProductionConfig(Config):
     TESTING = False
 
 
-# """
-# This is used to export the specified environments and we use it to
-# import the config under the tagname app_config
-# """
 app_config = {
     'development': DevelopmentConfig,
     'testing': TestingConfig,

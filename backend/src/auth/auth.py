@@ -1,19 +1,20 @@
+import os
 import json
 from flask import request, _request_ctx_stack, abort
 from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
 
-AUTH0_DOMAIN = 'samharre.us.auth0.com'
-ALGORITHMS = ['RS256']
-API_AUDIENCE = 'kanban'
+AUTH0_DOMAIN = os.getenv('AUTH0_DOMAIN')
+AUTH0_SECRET = os.getenv('AUTH0_SECRET')
+ALGORITHMS = os.getenv('ALGORITHMS')
+API_AUDIENCE = os.getenv('API_AUDIENCE')
 
 # AuthError Exception
 '''
 AuthError Exception
 A standardized way to communicate auth failure modes
 '''
-
 
 class AuthError(Exception):
     def __init__(self, error, status_code):
@@ -133,7 +134,7 @@ def get_user_id():
                 user_id = payload.get('sub')
 
         return user_id
-    except:
+    except Exception:
         raise
 
 
@@ -146,7 +147,7 @@ def requires_auth(permission=''):
                 token = get_token_auth_header()
                 payload = verify_decode_jwt(token)
                 check_permissions(permission, payload)
-            except:
+            except Exception:
                 raise
 
             return f(payload, *args, **kwargs)
