@@ -15,6 +15,7 @@ __pycache__/
 /backend/env.bak/
 /backend/venv.bak/
 
+/frontend/.env
 /frontend/.env.local
 /frontend/.env.development.local
 /frontend/.env.test.local
