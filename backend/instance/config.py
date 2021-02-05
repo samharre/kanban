@@ -4,7 +4,7 @@ import os
 class Config(object):
     DEBUG = False
     CSRF_ENABLED = True
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URI')
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
 
 
 class DevelopmentConfig(Config):
@@ -14,7 +14,7 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.getenv('TEST_DATABASE_URI')
+    SQLALCHEMY_DATABASE_URI = os.getenv('TEST_DATABASE_URL')
 
 
 class StagingConfig(Config):
