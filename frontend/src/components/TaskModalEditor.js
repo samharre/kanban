@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { makeStyles, fade } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import IconButton from "@material-ui/core/IconButton";

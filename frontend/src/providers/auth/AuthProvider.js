@@ -12,7 +12,7 @@ const AuthProvider = ({ children }) => {
     const getUserPermissions = async () => {
       if (isAuthenticated) {
         const jwt = await getAccessTokenSilently();
-        console.log('Token JWT: ', jwt);
+        // console.log('Token JWT: ', jwt);
 
         if (jwt) {
           const jwt_decoded = jwt_decode(jwt);
