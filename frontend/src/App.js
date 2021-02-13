@@ -9,16 +9,22 @@ import AuthProvider from './providers/auth/AuthProvider';
 import history from './utils/history';
 import PhaseProvider from './providers/phases/PhaseProvider';
 import TaskProvider from './providers/tasks/TaskProvider';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, isLoading } = useAuth0();
 
   return (
     <Route
       {...rest}
       render={props =>
         isAuthenticated ? (<Component {...props} />) :
-          (<Login />)
+        (isLoading 
+          ? <div className="centered">
+              <CircularProgress size={80}/>
+            </div>
+          : <Login />
+        )
       }
     />
   )
