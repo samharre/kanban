@@ -17,6 +17,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { PhaseContext } from '../providers/phases/PhaseProvider';
+import { TaskContext } from '../providers/tasks/TaskProvider';
 
 const useStyles = makeStyles((theme) => ({
   field: {
@@ -55,6 +56,7 @@ const TaskModalEditor = ({ dialogTitle, taskToEdit, handleTaskAction }) => {
   const [open, setOpen] = useState(false);
   let { phase_id, title, description, priority, due_date, order } = task;
   const { phases } = useContext(PhaseContext);
+  const { tasks } = useContext(TaskContext);
 
   const handleOpen = () => {
     if (taskToEdit) {
@@ -116,6 +118,18 @@ const TaskModalEditor = ({ dialogTitle, taskToEdit, handleTaskAction }) => {
               onChange={handleChange}
             />
 
+            <TextField className={classes.field}
+              id="outlined-multiline-static"
+              margin="dense"
+              label="Description"
+              name="description"
+              multiline
+              rows={2}
+              fullWidth
+              value={description || ''}
+              onChange={handleChange}
+            />
+
             <FormControl className={classes.field}>
               <InputLabel id="phase-label">Phase</InputLabel>
               <Select
@@ -137,7 +151,7 @@ const TaskModalEditor = ({ dialogTitle, taskToEdit, handleTaskAction }) => {
                 labelId="task-priority-label"
                 id="task-priority"
                 name="priority"
-                value={priority}
+                value={priority || ''}
                 onChange={handleChange}
               >
                 <MenuItem value={'#ff0000'}>High</MenuItem>
@@ -151,7 +165,7 @@ const TaskModalEditor = ({ dialogTitle, taskToEdit, handleTaskAction }) => {
               label="Due date"
               type="date"
               name="due_date"
-              value={due_date}
+              value={due_date || ''}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -167,23 +181,12 @@ const TaskModalEditor = ({ dialogTitle, taskToEdit, handleTaskAction }) => {
                 value={order}
                 onChange={handleChange}
               >
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
+                {tasks
+                  .filter(task => task.phase_id === phase_id)
+                  .map(task => <MenuItem key={task.id} value={task.order}>{task.order}</MenuItem>)
+                }
               </Select>
             </FormControl>
-
-            <TextField className={classes.field}
-              id="outlined-multiline-static"
-              margin="dense"
-              label="Description"
-              name="description"
-              multiline
-              rows={4}
-              fullWidth
-              value={description}
-              onChange={handleChange}
-            />
           </Grid>
         </DialogContent>
 
