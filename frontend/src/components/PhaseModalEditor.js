@@ -119,22 +119,23 @@ const PhaseModalEditor = ({ dialogTitle, phaseToEdit, handlePhaseAction }) => {
               onChange={handleChange}
             />
 
-            <FormControl className={classes.field}>
-              <InputLabel id="phase-order-label">Order</InputLabel>
-              <Select
-                labelId="phase-order-label"
-                id="phase-order"
-                name="order"
-                value={order}
-                onChange={handleChange}
-              >
-                {phases.map((phase, index) => (
-                  <MenuItem key={phase.id} value={index + 1}>{index + 1}</MenuItem>
-                ))}
-                <MenuItem value={phases.length + 1}>{phases.length + 1}</MenuItem>
-              </Select>
-            </FormControl>
-
+            {editPhase &&
+              <FormControl className={classes.field}>
+                <InputLabel id="phase-order-label">Order</InputLabel>
+                <Select
+                  labelId="phase-order-label"
+                  id="phase-order"
+                  name="order"
+                  value={order}
+                  onChange={handleChange}
+                >
+                  {phases.map((phase, index) => (
+                    <MenuItem key={phase.id} value={index + 1}>{index + 1}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            }
+            
             <FormControl className={classes.field} style={{ width: '200px' }}>
               <InputLabel id="phase-create-task-label">Can Create Task</InputLabel>
               <Select
