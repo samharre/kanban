@@ -6,7 +6,7 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [permissions, setPermissions] = useState([]);
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0()
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
     const getUserPermissions = async () => {
@@ -24,7 +24,7 @@ const AuthProvider = ({ children }) => {
     };
     getUserPermissions();
 
-  }, [getAccessTokenSilently]);
+  }, [isAuthenticated]);
 
   const setToken = async () => {
     const token = await getAccessTokenSilently();
