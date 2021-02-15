@@ -32,7 +32,7 @@ Follow instructions to install the latest version of python for your platform in
 
 #### Virtual Enviornment
 
-Create the virtual enviroment by naviging to the `**/backend**` directory and running:
+Create the virtual enviroment by naviging to the `/backend` directory and running:
 
 ```
 python3 -m venv env
@@ -59,7 +59,7 @@ Once you have your virtual environment setup and running, install dependencies b
 pip install -r requirements.txt
 ```
 
-This will install all of the required packages we selected within the `requirements.txt` file.
+This will install all of the required packages within the `requirements.txt` file.
 
 ## Database Setup
 
@@ -83,7 +83,7 @@ python3 manage.py db migrate
 From within the `/backend` directory ensure you are working using your created virtual environment, and then execute:
 
 ```
-export FLASK_APP=api.py;
+export FLASK_APP=run.py;
 flask run --reload
 ```
 
