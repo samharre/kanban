@@ -271,8 +271,8 @@ The API will return five error types when requests fail:
 
 ```
   curl -X POST \
-    curl https://kanban-backend-fsnd.herokuapp.com/phases \
-    -H 'Authorization: Bearer <INSERT_YOUR_TOKEN>' \
+    https://kanban-backend-fsnd.herokuapp.com/phases \
+    -H 'Authorization: Bearer <TOKEN>' \
     -H 'Content-Type: application/json' \
     -d '{
       "title": "Code Review",
@@ -304,7 +304,7 @@ The API will return five error types when requests fail:
 ```
   curl -X PATCH \
     https://kanban-backend-fsnd.herokuapp.com/phases/6 \
-    -H 'Authorization: Bearer <INSERT_YOUR_TOKEN>' \
+    -H 'Authorization: Bearer <TOKEN>' \
     -H 'Content-Type: application/json' \
     -d '{
       "can_create_task": true
@@ -343,18 +343,205 @@ The API will return five error types when requests fail:
   - Delete the phase of the given id if it exists.
   - Request Arguments: `phase_id: int`
   - Returns: Phase id that was deleted and success value.
-  - Sample:
+- Sample:
 
 ```
 curl -X DELETE \
   https://kanban-backend-fsnd.herokuapp.com/phases/6 \
-  -H 'Authorization: Bearer <INSERT_YOUR_TOKEN> '
+  -H 'Authorization: Bearer <TOKEN> '
 ```
 
 ```
 {
   "phase_deleted": 6,
   "success": true
+}
+```
+
+#### GET /tasks
+
+- General:
+  - Fetches a list of tasks
+  - Request Arguments: None
+  - Returns: A dictionary containing success value, and a list with all tasks created for an especific user.
+- Sample:
+
+```
+curl -X GET \
+  https://kanban-backend-fsnd.herokuapp.com/tasks \
+  -H 'Authorization: Bearer <TOKEN>'
+```
+
+```
+{
+  "success": true,
+  "tasks": [
+    {
+      "description": null,
+      "due_date": null,
+      "id": 4,
+      "order": 1,
+      "phase_id": 1,
+      "title": "Back 3",
+      "user_id": "auth0|5f8b7cda4361420078edc8a3"
+    },
+    {
+      "description": null,
+      "due_date": null,
+      "id": 1,
+      "order": 1,
+      "phase_id": 2,
+      "title": "Test to do",
+      "user_id":"auth0|5f8b7cda4361420078edc8a3"
+    }
+  ]
+}
+```
+
+#### GET /phases/{phase_id}/tasks
+
+- General:
+  - Fetches tasks for an especific phase.
+  - Request Arguments: `phase_id: int`
+  - Returns: A dictionary containing success value, and tasks.
+- Sample:
+
+```
+curl -X GET \
+  https://kanban-backend-fsnd.herokuapp.com/phases/1/tasks \
+  -H 'Authorization: Bearer <TOKEN>'
+```
+
+```
+{
+  "success": true,
+  "tasks": [
+    {
+      "description": null,
+      "due_date": null,
+      "id": 4,
+      "order": 1,
+      "phase_id": 1,
+      "title": "Back 3",
+      "user_id":"auth0|5f8b7cda4361420078edc8a3"
+    }
+  ]
+}
+```
+
+#### POST /tasks
+
+- General:
+  - Creates a new task using the submitted phase id, title, description, and due date. Description and due date are not requested data.
+  - Request body:
+  ```
+    {
+        "phase_id": int,
+        "title": string
+    }
+  ```
+  - Returns: A dictionary containing success value, and task.
+- Sample:
+
+```
+  curl -X POST \
+    https://kanban-backend-fsnd.herokuapp.com/tasks \
+    -H 'Authorization: Bearer <TOKEN>' \
+    -H 'Content-Type: application/json' \
+    -d '{
+      "phase_id": 1,
+      "title": "Test task 1 - phase 1"
+  }'
+```
+
+```
+{
+  "success": true,
+  "task": {
+    "description": null,
+    "due_date": null,
+    "id": 15,
+    "order": 2,
+    "phase_id": 1,
+    "title": "Test task 1 - phase 1",
+    "user_id":"auth0|5f8b7cda4361420078edc8a3"
+  }
+}
+```
+
+#### PATCH /tasks/{task_id}
+
+- General:
+  - Updates the task using the submitted phase id, title, description, order, or due date.
+  - Request Arguments: `task_id: int`
+  - Request body: Inform "phase_id", "title", "description", "order", or "due_date".
+  - Returns: A dictionary containing success value, the updated task, and all tasks for the especific user.
+- Sample:
+
+```
+  curl -X PATCH \
+    https://kanban-backend-fsnd.herokuapp.com/tasks/15 \
+    -H 'Authorization: Bearer <TOKEN>' \
+    -H 'Content-Type: application/json' \
+    -d '{
+      "title": "Test task 1 - phase 1 ***",
+      "order": 1
+  }'
+```
+
+```
+{
+  "success": true,
+  "task": {
+    "description": null,
+    "due_date": null,
+    "id": 15,
+    "order": 1,
+    "phase_id": 1,
+    "title": "Test task 1 - phase 1 ***",
+    "user_id": "auth0|5f8b7cda4361420078edc8a3"
+  },
+  "tasks":[
+    {
+      "description": null,
+      "due_date": null,
+      "id": 15,
+      "order": 1,
+      "phase_id": 1,
+      "title": "Test task 1 - phase 1 ***",
+      "user_id": "auth0|5f8b7cda4361420078edc8a3"
+    },
+    {
+      "description": null,
+      "due_date": null,
+      "id": 4,
+      "order": 2,
+      "phase_id": 1,
+      "title": "Back 3",
+      "user_id":"auth0|5f8b7cda4361420078edc8a3"
+    }
+  ]
+}
+```
+
+#### DELETE /tasks/{task_id}
+
+- General:
+  - Delete the task of the given id if it exists.
+  - Request Arguments: `task_id: int`
+  - Returns: Task id that was deleted and success value.
+- Sample:
+
+```
+curl -X DELETE \
+  https://kanban-backend-fsnd.herokuapp.com/tasks/15 \
+  -H 'Authorization: Bearer <TOKEN> '
+```
+
+```
+{
+  "success": true,
+  "task_deleted": 15
 }
 ```
 
@@ -365,3 +552,7 @@ eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFtaGF5UUdIODhfbnF0Ql9jMFVPbyJ9.eyJ
 ```
 
 #### Temporary Token - Team permission
+
+```
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFtaGF5UUdIODhfbnF0Ql9jMFVPbyJ9.eyJpc3MiOiJodHRwczovL3NhbWhhcnJlLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjhiN2Q2NzUzZDM0NzAwNmU5MTVmMTUiLCJhdWQiOlsia2FuYmFuIiwiaHR0cHM6Ly9zYW1oYXJyZS51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjEzNDM2OTM3LCJleHAiOjE2MTM1MjMzMzcsImF6cCI6InBHb2N5TUk2bFFkTzNWM2dBZWRpVzdrU0lxOFpSRUpqIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTp0YXNrcyIsInBhdGNoOnRhc2tzIiwicG9zdDp0YXNrcyJdfQ.KllDIgy8EedLZIUzJSeXVmA4fTpVy_vQmrCzoPE0oSiTSUlLtl1D5s5Zm16Si-xAb3Uqk0YH2kT68N8jxE3blBE7AzX6P1rHNQWC92Qwko2RBUxfVBYaedanm90-eIGT5TWFBZ0-g7JOFSNYxp2ZHh2wcLLi1TP1bT_XMNkOr-ocTixRDkwzbnvd12kDu2yJIjnSdjTXIXdti9hcFHLHc7Vhvwp9097hY-XN6knJHUVOSj94MTln22RUKEEdxrDWeMmzQImxbINPatv_gxViIy_Fdz6Dnv1alNOiYfJc5B7lL6HX_xRDZpB0E5HEELJQpVnW5g2F14i1lVpAZWrLaQ
+```
