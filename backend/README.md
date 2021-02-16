@@ -115,3 +115,253 @@ The API will return five error types when requests fail:
 - 500: Internal server error
 
 ### Endpoints
+
+#### GET /phases
+
+- General:
+  - Fetches a list of phases
+  - Request Arguments: None
+  - Returns: A dictionary containing success value, and a list with all phases.
+- Sample: `curl http://127.0.0.1:5000/phases` or `curl https://kanban-backend-fsnd.herokuapp.com/phases`
+
+```
+{
+  "phases": [
+    {
+      "can_create_task": true,
+      "id": 4,
+      "order": 1,
+      "title": "Backlog"
+    },
+    {
+      "can_create_task": true,
+      "id": 1,
+      "order": 2,
+      "title": "To Do"
+    }
+  ],
+  "success": true
+}
+```
+
+#### GET /phases/{phase_id}
+
+- General:
+  - Fetches the phase for the especific phase id.
+  - Request Arguments: `phase_id: int`
+  - Returns: A dictionary containing success value, and the phase.
+- Sample: `curl http://127.0.0.1:5000/phases/1` or `curl https://kanban-backend-fsnd.herokuapp.com/phases/1`
+
+```
+{
+  "phase":
+    {
+      "can_create_task": true,
+      "id": 1,
+      "order": 2,
+      "title": "To Do"
+    },
+  "success":true
+}
+```
+
+#### GET /phases-detail
+
+- General:
+  - Fetches a list of phases and its tasks.
+  - Request Arguments: None
+  - Returns: A dictionary containing success value, and a list with all phases and its tasks.
+- Sample: `curl http://127.0.0.1:5000/phases-detail` or `curl https://kanban-backend-fsnd.herokuapp.com/phases-detail`
+
+```
+{
+  "phases": [
+    {
+      "can_create_task": true,
+      "id": 4,
+      "order": 1,
+      "tasks": [
+        {
+          "description": null,
+          "due_date": null,
+          "id": 2,
+          "order": 1,
+          "phase_id": 4,
+          "title": "Back 1",
+          "user_id":"auth0|5f8b7cda4361420078edc8a3"
+        },
+        {
+          "description": null,
+          "due_date": "Thu, 18 Feb 2021 00:00:00 GMT",
+          "id": 3,
+          "order": 3,
+          "phase_id": 4,
+          "title": "Back 2 **** ",
+          "user_id": "auth0|5f8b7cda4361420078edc8a3"
+        }
+      ],
+      "title": "Backlog"
+    },
+    {
+      "can_create_task": true,
+      "id": 1,
+      "order": 2,
+      "tasks": [
+        {
+          "description": null,
+          "due_date": null,
+          "id": 4,
+          "order": 1,
+          "phase_id": 1,
+          "priority": "#ff0000",
+          "title": "Back 3",
+          "user_id": "auth0|5f8b7cda4361420078edc8a3"
+        }
+      ],
+      "title": "To Do"
+    }
+  ],
+  "success": true
+}
+```
+
+#### GET /phases-detail/{phase_id}
+
+- General:
+  - Fetches the phase for the especific phase id and its tasks.
+  - Request Arguments: `phase_id: int`
+  - Returns: A dictionary containing success value, the phase and its tasks.
+- Sample: `curl http://127.0.0.1:5000/phases-detail/1` or `curl https://kanban-backend-fsnd.herokuapp.com/phases-detail/1`
+
+```
+{
+  "phase": {
+    "can_create_task": true,
+    "id": 1,
+    "order": 2,
+    "tasks": [
+      {
+        "description": null,
+        "due_date": null,
+        "id": 4,
+        "order": 1,
+        "phase_id": 1,
+        "title": "Back 3",
+        "user_id": "auth0|5f8b7cda4361420078edc8a3"
+      }
+    ],
+    "title": "To Do"
+  },
+  "success": true}
+```
+
+#### POST /phases
+
+- General:
+  - Creates a new phase using the submitted title, and indication whether the phase can create a new task or not.
+  - Request body:
+  ```
+    {
+        "title": string,
+        "can_create_task": boolean
+    }
+  ```
+  - Returns: A dictionary containing success value, and phase.
+- Sample:
+
+```
+  curl -X POST \
+    curl https://kanban-backend-fsnd.herokuapp.com/phases \
+    -H 'Authorization: Bearer <INSERT_YOUR_TOKEN>' \
+    -H 'Content-Type: application/json' \
+    -d '{
+      "title": "Code Review",
+      "can_create_task": false
+  }'
+```
+
+```
+{
+  "phase": {
+    "can_create_task": false,
+    "id": 6,
+    "order": 5,
+    "title": "Code Review"
+  },
+  "success": true
+}
+```
+
+#### PATCH /phases/{phase_id}
+
+- General:
+  - Updates the phase using the submitted title, order, or indication whether the phase can create a new task or not.
+  - Request Arguments: `phase_id: int`
+  - Request body: Inform "title", "can_create_task", or "order"
+  - Returns: A dictionary containing success value, the updated phase, and all phases.
+- Sample:
+
+```
+  curl -X PATCH \
+    https://kanban-backend-fsnd.herokuapp.com/phases/6 \
+    -H 'Authorization: Bearer <INSERT_YOUR_TOKEN>' \
+    -H 'Content-Type: application/json' \
+    -d '{
+      "can_create_task": true
+  }'
+```
+
+```
+{
+  "phase": {
+    "can_create_task": false,
+    "id": 6,
+    "order": 5,
+    "title": "Code Review ***"
+  },
+  "phases": [
+    {
+      "can_create_task": true,
+      "id": 4,
+      "order": 1,
+      "title": "Backlog"
+    },
+    {
+      "can_create_task": false,
+      "id": 6,
+      "order": 5,
+      "title": "Code Review ***"
+    }
+  ],
+  "success": true
+}
+```
+
+#### DELETE /phases/{phase_id}
+
+- General:
+  - Delete the phase of the given id if it exists.
+  - Request Arguments: `phase_id: int`
+  - Returns: Phase id that was deleted and success value.
+  - Sample:
+
+```
+curl -X DELETE \
+  https://kanban-backend-fsnd.herokuapp.com/phases/6 \
+  -H 'Authorization: Bearer <INSERT_YOUR_TOKEN> '
+```
+
+```
+{
+  "phase_deleted": 6,
+  "success": true
+}
+```
+
+#### Temporary Token - Manager permission
+
+```
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFtaGF5UUdIODhfbnF0Ql9jMFVPbyJ9.eyJpc3MiOiJodHRwczovL3NhbWhhcnJlLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjhiN2NkYTQzNjE0MjAwNzhlZGM4YTMiLCJhdWQiOlsia2FuYmFuIiwiaHR0cHM6Ly9zYW1oYXJyZS51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjEzNDMxMjYxLCJleHAiOjE2MTM1MTc2NjEsImF6cCI6InBHb2N5TUk2bFFkTzNWM2dBZWRpVzdrU0lxOFpSRUpqIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTpwaGFzZXMiLCJkZWxldGU6dGFza3MiLCJwYXRjaDpwaGFzZXMiLCJwYXRjaDp0YXNrcyIsInBvc3Q6cGhhc2VzIiwicG9zdDp0YXNrcyJdfQ.FC_5NNIKFvVTPfPRLypDO83XueN1d9OqfoS-_RlhyFu7jXVryLlnPQkI9GBTTCfZ6pyJi5wS61X0HAIDtnlyuz5cKKCUFo_P0SEG4Z81TVLd1RKkjwUCmHADttz3QhAHsU1Jjnb2MkaSyjUIpydv_eQGUJ1oO7uI-wbCbwOKe0Qs6HWLxYhuNjmd8iYz3deup13d-HhQvb35TVPyJvKX9gKmyzYeaYdmcV2fPqygM0YKV3vYdFntiSvSgU2PR8GF98MEoSVnsmZmUJ6yjb-8bRKr2F7TvFjtCnttrEPSYqOgNXxIvsK2cTjBsEqzK4t07N9Kf2-hmKigYNmNJ7HZEw
+```
+
+#### Temporary Token - Team permission
