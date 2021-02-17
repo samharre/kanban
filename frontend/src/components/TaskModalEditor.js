@@ -165,7 +165,7 @@ const TaskModalEditor = ({ dialogTitle, taskToEdit, handleTaskAction }) => {
               label="Due date"
               type="date"
               name="due_date"
-              value={due_date || ''}
+              value={due_date ? new Date(due_date).toISOString().slice(0,10) : ''}
               InputLabelProps={{
                 shrink: true,
               }}
