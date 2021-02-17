@@ -43,9 +43,9 @@ touch .env
 **Open the `.env` file and configure the enviroment variables**
 
 ```
-AUTH0_DOMAIN = <the Auth0 application Domain>
-AUTH0_SECRET = <the Auth0 application Client Secret>
-API_AUDIENCE = <the Auth0 API Identifier>
+AUTH0_DOMAIN = <Auth0 application Domain>
+AUTH0_SECRET = <Auth0 application Client Secret>
+API_AUDIENCE = <Auth0 API Identifier>
 APP_SETTINGS = 'development'
 DATABASE_URL = 'postgresql://localhost:5432/kanban'
 TEST_DATABASE_URL = 'postgresql://localhost:5432/kanban_test'
@@ -564,7 +564,7 @@ dropdb kanban_test
 createdb kanban_test
 ```
 
-To execute tests, in your virtual enviroment run
+To execute tests, on your virtual enviroment run
 
 ```
 python3 -m unittest tests/test_phase.py

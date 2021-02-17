@@ -10,7 +10,7 @@ This project depends on Nodejs and Node Package Manager (NPM). Before continuing
 
 #### Installing project dependencies
 
-This project uses NPM to manage software dependencies. NPM relies on the package.json file located in the `/frontend` directory of this repository. After cloning, open your terminal and run:
+This project uses NPM to manage software dependencies. NPM relies on the package.json file located in the `/frontend` directory of this repository. Open your terminal and run:
 
 ```
 npm install
@@ -18,7 +18,7 @@ npm install
 
 ### Creating enviroment variables
 
-1. Create the file `.env` on the `/frontend` directory
+1. Create the `.env` file on the `/frontend` directory
 2. Open the `.env` file and configure the enviroment variables
 
 ```
