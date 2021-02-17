@@ -7,14 +7,13 @@ https://kanban-client-fsnd.herokuapp.com/
 - Example of usage:
   Insert a link with video explanation here.
 
-## Technologies
+## Tech Stack
 
-- Frameworks: React and Material UI
-- Server: Flask
-- Database: PostgreSQL
-- Languages: JavaScript and Python
-
-## About the Stack
+- **React** and **Material UI** for the frontend
+- **Python3** and **Flask** as server language and server framework
+- **Flask-Migrate** for creating and running schema migrations
+- **PostgreSQL** database
+- **SQLAlchemy ORM** the ORM library
 
 ### Backend
 
