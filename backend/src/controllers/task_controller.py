@@ -59,7 +59,8 @@ def create_task(jwt_payload):
     if not phase:
         abort(422)
 
-    query = Task.query.filter(Task.phase_id == phase_id)
+    query = Task.query.filter(
+        Task.phase_id == phase_id, Task.user_id == jwt_payload.get('sub'))
     order = query.count() + 1
 
     description = body.get('description')
