@@ -5,7 +5,7 @@ This project was inspired on Trello for the FSND - Udacity final project. Manage
 https://kanban-client-fsnd.herokuapp.com/
 
 - Example of usage:
-  Insert a link with video explanation here.
+  ![demo](demo.gif)
 
 ## Tech Stack
 
@@ -13,7 +13,7 @@ https://kanban-client-fsnd.herokuapp.com/
 - **Python3** and **Flask** as server language and server framework
 - **Flask-Migrate** for creating and running schema migrations
 - **PostgreSQL** database
-- **SQLAlchemy ORM** the ORM library
+- **SQLAlchemy ORM** as ORM library
 
 ### Backend
 
