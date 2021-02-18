@@ -7,7 +7,7 @@ from urllib.request import urlopen
 
 AUTH0_DOMAIN = os.getenv('AUTH0_DOMAIN')
 AUTH0_SECRET = os.getenv('AUTH0_SECRET')
-ALGORITHMS = os.getenv('ALGORITHMS')
+ALGORITHMS = ['RS256']
 API_AUDIENCE = os.getenv('API_AUDIENCE')
 
 # AuthError Exception
@@ -15,6 +15,7 @@ API_AUDIENCE = os.getenv('API_AUDIENCE')
 AuthError Exception
 A standardized way to communicate auth failure modes
 '''
+
 
 class AuthError(Exception):
     def __init__(self, error, status_code):
