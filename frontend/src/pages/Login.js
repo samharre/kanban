@@ -8,11 +8,11 @@ const Login = () => {
 
   return (
     <div className="centered">
-      <h1>Kanban</h1>
-      <p>
-        An application inspired on <a href="https://trello.com">Trello</a> to help managing any project end-to-end.
+      <h1 style={{fontSize: '2.7rem'}}>Kanban</h1>
+      <p style={{fontSize: '1.2rem'}}>
+        An application inspired on <a href="https://trello.com">Trello</a> to help managing projects.
       </p>
-      <Button style={{ margin: '10px' }}
+      <Button style={{ margin: '15px' }}
         color="primary"
         variant="contained"
         size="large"
