@@ -72,7 +72,6 @@ const PhaseModalEditor = ({ dialogTitle, phaseToEdit, handlePhaseAction }) => {
     handlePhaseAction(phase);
     setPhase(phaseInitialState);
   };
-
   return (
     <>
       {editPhase &&
@@ -107,7 +106,7 @@ const PhaseModalEditor = ({ dialogTitle, phaseToEdit, handlePhaseAction }) => {
 
         <DialogContent>
           <Grid container justify="space-between">
-            <TextField className={classes.field}
+            <TextField className={classes.field} autoComplete="off"
               label="Title"
               name="title"
               margin="dense"
