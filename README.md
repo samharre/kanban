@@ -4,8 +4,6 @@ This project was inspired on Trello for the FSND - Udacity final project. Manage
 
 https://kanban-client-fsnd.herokuapp.com/
 
-- Example of usage:
-
 ![demo](demo.gif)
 
 ## Tech Stack
