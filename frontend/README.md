@@ -22,11 +22,11 @@ npm install
 2. Open the `.env` file and configure the enviroment variables
 
 ```
-REACT_APP_AUTH0_DOMAIN = <Auth0 application Domain>
-REACT_APP_AUTH0_CLIENT_ID = <Auth0 application Client ID>
-REACT_APP_AUTH0_CLIENT_SECRET = <Auth0 application Client Secret>
-REACT_APP_AUTH0_AUDIENCE = <Auth0 API Identifier>
-REACT_APP_API_URL = http://localhost:5000
+REACT_APP_AUTH0_DOMAIN='<Auth0 application Domain>'
+REACT_APP_AUTH0_CLIENT_ID='<Auth0 application Client ID>'
+REACT_APP_AUTH0_CLIENT_SECRET='<Auth0 application Client Secret>'
+REACT_APP_AUTH0_AUDIENCE ='<Auth0 API Identifier>'
+REACT_APP_API_URL='http://localhost:5000'
 ```
 
 ## Running Your Frontend in Dev Mode
