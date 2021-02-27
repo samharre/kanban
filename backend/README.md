@@ -43,12 +43,12 @@ touch .env
 **Open the `.env` file and configure the enviroment variables**
 
 ```
-AUTH0_DOMAIN = <Auth0 application Domain>
-AUTH0_SECRET = <Auth0 application Client Secret>
-API_AUDIENCE = <Auth0 API Identifier>
-APP_SETTINGS = 'development'
-DATABASE_URL = 'postgresql://localhost:5432/kanban'
-TEST_DATABASE_URL = 'postgresql://localhost:5432/kanban_test'
+export AUTH0_DOMAIN='<Auth0 application Domain>'
+export AUTH0_SECRET='<Auth0 application Client Secret>'
+export API_AUDIENCE='<Auth0 API Identifier>'
+export APP_SETTINGS='development'
+export DATABASE_URL='postgresql://localhost:5432/kanban'
+export TEST_DATABASE_URL='postgresql://localhost:5432/kanban_test'
 ```
 
 #### PIP Dependencies
