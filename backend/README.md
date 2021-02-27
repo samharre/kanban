@@ -76,6 +76,7 @@ From within the `/backend` directory ensure you are working using your created v
 ```
 python3 manage.py db init
 python3 manage.py db migrate
+python3 manage.py db upgrade
 ```
 
 ## Running the server
