@@ -74,6 +74,7 @@ createdb kanban
 From within the `/backend` directory ensure you are working using your created virtual environment, and then execute:
 
 ```
+source .env
 python3 manage.py db init
 python3 manage.py db migrate
 python3 manage.py db upgrade
@@ -92,7 +93,19 @@ The `--reload` flag will detect file changes and restart the server automaticall
 
 ## API Reference
 
-- Base URL: Kanban app can be run using http://127.0.0.1:5000 (locally) or https://kanban-backend-fsnd.herokuapp.com.
+- Base URL: Kanban app can be run using localhost:5000 or https://kanban-backend-fsnd.herokuapp.com
+
+#### Temporary Token - Manager permission
+
+```
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFtaGF5UUdIODhfbnF0Ql9jMFVPbyJ9.eyJpc3MiOiJodHRwczovL3NhbWhhcnJlLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjhiN2NkYTQzNjE0MjAwNzhlZGM4YTMiLCJhdWQiOlsia2FuYmFuIiwiaHR0cHM6Ly9zYW1oYXJyZS51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjE0NDUyMTI5LCJleHAiOjE2MTQ1Mzg1MjksImF6cCI6InBHb2N5TUk2bFFkTzNWM2dBZWRpVzdrU0lxOFpSRUpqIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTpwaGFzZXMiLCJkZWxldGU6dGFza3MiLCJwYXRjaDpwaGFzZXMiLCJwYXRjaDp0YXNrcyIsInBvc3Q6cGhhc2VzIiwicG9zdDp0YXNrcyJdfQ.4IK-Y5VUc8hMvCwMzXWRGUkSsNu18zrwVVAJDSL1-755Sd8CPApb__0KNMtSO8KLwqUJPJMpTW9PzIxMyjxFclK2oOMnsMF90XVq7oeeyBGzZhbhJ7c-SH66YRir5AMJyMpYMSJJwkWzsKbyZB6KUDc3TI57p0k20dnCqu-zhXO71WSk2vg4SL965k_n2cysoGkdwjo8uMeI5zxsprng4YyoVn2knUyWZejuMCpi-VguT-p3en0fVUzKafpDKCTTOVJj9aISArsd-RY765CLhNAQsNVN5IKW8Oizh5wSgMeCtnxiEl4-ptif2uI9z8JMbKf3Obhwp3vGfaCUs3n_fQ
+```
+
+#### Temporary Token - Team permission
+
+```
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFtaGF5UUdIODhfbnF0Ql9jMFVPbyJ9.eyJpc3MiOiJodHRwczovL3NhbWhhcnJlLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjhiN2Q2NzUzZDM0NzAwNmU5MTVmMTUiLCJhdWQiOlsia2FuYmFuIiwiaHR0cHM6Ly9zYW1oYXJyZS51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjE0NDUyMTc4LCJleHAiOjE2MTQ1Mzg1NzgsImF6cCI6InBHb2N5TUk2bFFkTzNWM2dBZWRpVzdrU0lxOFpSRUpqIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTp0YXNrcyIsInBhdGNoOnRhc2tzIiwicG9zdDp0YXNrcyJdfQ.oFxg77g1AUlFfZUXQj58X1fftvb29GIRJ3GWkPOnUnMbcgg5R5T-pe7ONHaSX_CJJPR8YuUdC1AqBVGpDmvvmGWRSkXhlBhK3g_ByNOul6CJkSTeEWKaShkmCyD8hFcl3UnAcmDtaD-MQ0dgjsIWR-okaeXZSXNullJByVehxUSakVolgm2AaOOcEs6HSyfXdAYaMSUPWrc8r-LakiGOhKJ0DmuhswmerPmDFba-qsDzPJzFAxGTi0S_kSjbEXA_lBPARKkYiMfCgFAhIl2Zp11sKaExtWrkRJYZ0rZ3lUH-gsRhB39FnX5qNp3S2QSQxsJsQGH0XfPK64M7oykaKg
+```
 
 ### Error Handling
 
@@ -123,7 +136,7 @@ The API will return five error types when requests fail:
   - Fetches a list of phases
   - Request Arguments: None
   - Returns: A dictionary containing success value, and a list with all phases.
-- Sample: `curl http://127.0.0.1:5000/phases` or `curl https://kanban-backend-fsnd.herokuapp.com/phases`
+- Sample: `curl https://kanban-backend-fsnd.herokuapp.com/phases`
 
 ```
 {
@@ -151,7 +164,7 @@ The API will return five error types when requests fail:
   - Fetches the phase for the especific phase id.
   - Request Arguments: `phase_id: int`
   - Returns: A dictionary containing success value, and the phase.
-- Sample: `curl http://127.0.0.1:5000/phases/1` or `curl https://kanban-backend-fsnd.herokuapp.com/phases/1`
+- Sample: `curl https://kanban-backend-fsnd.herokuapp.com/phases/1`
 
 ```
 {
@@ -172,7 +185,7 @@ The API will return five error types when requests fail:
   - Fetches a list of phases and its tasks.
   - Request Arguments: None
   - Returns: A dictionary containing success value, and a list with all phases and its tasks.
-- Sample: `curl http://127.0.0.1:5000/phases-detail` or `curl https://kanban-backend-fsnd.herokuapp.com/phases-detail`
+- Sample: `curl https://kanban-backend-fsnd.herokuapp.com/phases-detail`
 
 ```
 {
@@ -232,7 +245,7 @@ The API will return five error types when requests fail:
   - Fetches the phase for the especific phase id and its tasks.
   - Request Arguments: `phase_id: int`
   - Returns: A dictionary containing success value, the phase and its tasks.
-- Sample: `curl http://127.0.0.1:5000/phases-detail/1` or `curl https://kanban-backend-fsnd.herokuapp.com/phases-detail/1`
+- Sample: `curl https://kanban-backend-fsnd.herokuapp.com/phases-detail/1`
 
 ```
 {
@@ -544,18 +557,6 @@ curl -X DELETE \
   "success": true,
   "task_deleted": 15
 }
-```
-
-#### Temporary Token - Manager permission
-
-```
-eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFtaGF5UUdIODhfbnF0Ql9jMFVPbyJ9.eyJpc3MiOiJodHRwczovL3NhbWhhcnJlLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjhiN2NkYTQzNjE0MjAwNzhlZGM4YTMiLCJhdWQiOlsia2FuYmFuIiwiaHR0cHM6Ly9zYW1oYXJyZS51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjEzNDMxMjYxLCJleHAiOjE2MTM1MTc2NjEsImF6cCI6InBHb2N5TUk2bFFkTzNWM2dBZWRpVzdrU0lxOFpSRUpqIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTpwaGFzZXMiLCJkZWxldGU6dGFza3MiLCJwYXRjaDpwaGFzZXMiLCJwYXRjaDp0YXNrcyIsInBvc3Q6cGhhc2VzIiwicG9zdDp0YXNrcyJdfQ.FC_5NNIKFvVTPfPRLypDO83XueN1d9OqfoS-_RlhyFu7jXVryLlnPQkI9GBTTCfZ6pyJi5wS61X0HAIDtnlyuz5cKKCUFo_P0SEG4Z81TVLd1RKkjwUCmHADttz3QhAHsU1Jjnb2MkaSyjUIpydv_eQGUJ1oO7uI-wbCbwOKe0Qs6HWLxYhuNjmd8iYz3deup13d-HhQvb35TVPyJvKX9gKmyzYeaYdmcV2fPqygM0YKV3vYdFntiSvSgU2PR8GF98MEoSVnsmZmUJ6yjb-8bRKr2F7TvFjtCnttrEPSYqOgNXxIvsK2cTjBsEqzK4t07N9Kf2-hmKigYNmNJ7HZEw
-```
-
-#### Temporary Token - Team permission
-
-```
-eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFtaGF5UUdIODhfbnF0Ql9jMFVPbyJ9.eyJpc3MiOiJodHRwczovL3NhbWhhcnJlLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjhiN2Q2NzUzZDM0NzAwNmU5MTVmMTUiLCJhdWQiOlsia2FuYmFuIiwiaHR0cHM6Ly9zYW1oYXJyZS51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjEzNDM2OTM3LCJleHAiOjE2MTM1MjMzMzcsImF6cCI6InBHb2N5TUk2bFFkTzNWM2dBZWRpVzdrU0lxOFpSRUpqIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTp0YXNrcyIsInBhdGNoOnRhc2tzIiwicG9zdDp0YXNrcyJdfQ.KllDIgy8EedLZIUzJSeXVmA4fTpVy_vQmrCzoPE0oSiTSUlLtl1D5s5Zm16Si-xAb3Uqk0YH2kT68N8jxE3blBE7AzX6P1rHNQWC92Qwko2RBUxfVBYaedanm90-eIGT5TWFBZ0-g7JOFSNYxp2ZHh2wcLLi1TP1bT_XMNkOr-ocTixRDkwzbnvd12kDu2yJIjnSdjTXIXdti9hcFHLHc7Vhvwp9097hY-XN6knJHUVOSj94MTln22RUKEEdxrDWeMmzQImxbINPatv_gxViIy_Fdz6Dnv1alNOiYfJc5B7lL6HX_xRDZpB0E5HEELJQpVnW5g2F14i1lVpAZWrLaQ
 ```
 
 ## Testing
