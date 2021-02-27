@@ -142,19 +142,24 @@ The API will return five error types when requests fail:
 {
   "phases": [
     {
-      "can_create_task": true,
-      "id": 4,
-      "order": 1,
-      "title": "Backlog"
+      "can_create_task":true,
+      "id":27,
+      "order":1,
+      "title":"To Do"
     },
     {
-      "can_create_task": true,
-      "id": 1,
-      "order": 2,
-      "title": "To Do"
-    }
-  ],
-  "success": true
+      "can_create_task":true,
+      "id":28,
+      "order":2,
+      "title":"Doing"
+    },
+    {
+      "can_create_task":false,
+      "id":31,
+      "order":3,
+      "title":"Done"}
+    ],
+  "success":true
 }
 ```
 
@@ -164,15 +169,15 @@ The API will return five error types when requests fail:
   - Fetches the phase for the especific phase id.
   - Request Arguments: `phase_id: int`
   - Returns: A dictionary containing success value, and the phase.
-- Sample: `curl https://kanban-backend-fsnd.herokuapp.com/phases/1`
+- Sample: `curl https://kanban-backend-fsnd.herokuapp.com/phases/27`
 
 ```
 {
   "phase":
     {
       "can_create_task": true,
-      "id": 1,
-      "order": 2,
+      "id": 27,
+      "order": 1,
       "title": "To Do"
     },
   "success":true
@@ -191,51 +196,48 @@ The API will return five error types when requests fail:
 {
   "phases": [
     {
-      "can_create_task": true,
-      "id": 4,
-      "order": 1,
+      "can_create_task":true,
+      "id":27,
+      "order":1,
       "tasks": [
         {
-          "description": null,
-          "due_date": null,
-          "id": 2,
-          "order": 1,
-          "phase_id": 4,
-          "title": "Back 1",
+          "description":null,
+          "due_date":null,
+          "id":36,
+          "order":1,
+          "phase_id":27,
+          "title":"Task 2",
           "user_id":"auth0|5f8b7cda4361420078edc8a3"
-        },
-        {
-          "description": null,
-          "due_date": "Thu, 18 Feb 2021 00:00:00 GMT",
-          "id": 3,
-          "order": 3,
-          "phase_id": 4,
-          "title": "Back 2 **** ",
-          "user_id": "auth0|5f8b7cda4361420078edc8a3"
         }
       ],
-      "title": "Backlog"
+      "title":"To Do"
     },
     {
-      "can_create_task": true,
-      "id": 1,
-      "order": 2,
+      "can_create_task":true,
+      "id":28,
+      "order":2,
       "tasks": [
         {
-          "description": null,
-          "due_date": null,
-          "id": 4,
-          "order": 1,
-          "phase_id": 1,
-          "priority": "#ff0000",
-          "title": "Back 3",
-          "user_id": "auth0|5f8b7cda4361420078edc8a3"
+          "description":null,
+          "due_date":"Mon, 22 Feb 2021 00:00:00 GMT",
+          "id":35,
+          "order":1,
+          "phase_id":28,
+          "title":"Task 1",
+          "user_id":"auth0|5f8b7cda4361420078edc8a3"
         }
       ],
-      "title": "To Do"
+      "title":"Doing"
+    },
+    {
+      "can_create_task":false,
+      "id":31,
+      "order":3,
+      "tasks":[],
+      "title":"Done"
     }
   ],
-  "success": true
+  "success":true
 }
 ```
 
@@ -245,28 +247,30 @@ The API will return five error types when requests fail:
   - Fetches the phase for the especific phase id and its tasks.
   - Request Arguments: `phase_id: int`
   - Returns: A dictionary containing success value, the phase and its tasks.
-- Sample: `curl https://kanban-backend-fsnd.herokuapp.com/phases-detail/1`
+- Sample: `curl https://kanban-backend-fsnd.herokuapp.com/phases-detail/27`
 
 ```
 {
-  "phase": {
-    "can_create_task": true,
-    "id": 1,
-    "order": 2,
+  "phase":
+  {
+    "can_create_task":true,
+    "id":27,
+    "order":1,
     "tasks": [
       {
-        "description": null,
-        "due_date": null,
-        "id": 4,
-        "order": 1,
-        "phase_id": 1,
-        "title": "Back 3",
-        "user_id": "auth0|5f8b7cda4361420078edc8a3"
+        "description":null,
+        "due_date":null,
+        "id":36,
+        "order":1,
+        "phase_id":27,
+        "title":"Task 2",
+        "user_id":"auth0|5f8b7cda4361420078edc8a3"
       }
     ],
-    "title": "To Do"
+    "title":"To Do"
   },
-  "success": true}
+  "success":true
+}
 ```
 
 #### POST /phases
@@ -296,13 +300,15 @@ The API will return five error types when requests fail:
 
 ```
 {
-  "phase": {
-    "can_create_task": false,
-    "id": 6,
-    "order": 5,
-    "title": "Code Review"
+  "phase":
+  {
+    "can_create_task":false,
+    "id":32,
+    "order":4,
+    "title":
+    "Code Review"
   },
-  "success": true
+  "success":true
 }
 ```
 
@@ -317,37 +323,50 @@ The API will return five error types when requests fail:
 
 ```
   curl -X PATCH \
-    https://kanban-backend-fsnd.herokuapp.com/phases/6 \
+    https://kanban-backend-fsnd.herokuapp.com/phases/32 \
     -H 'Authorization: Bearer <TOKEN>' \
     -H 'Content-Type: application/json' \
     -d '{
-      "can_create_task": true
+      "title": "Code Review - TEST EDIT"
   }'
 ```
 
 ```
 {
-  "phase": {
-    "can_create_task": false,
-    "id": 6,
-    "order": 5,
-    "title": "Code Review ***"
+  "phase":
+  {
+    "can_create_task":false,
+    "id":32,
+    "order":4,
+    "title":"Code Review - TEST"
   },
-  "phases": [
+  "phases":[
     {
-      "can_create_task": true,
-      "id": 4,
-      "order": 1,
-      "title": "Backlog"
+      "can_create_task":true,
+      "id":27,
+      "order":1,
+      "title":"To Do"
     },
     {
-      "can_create_task": false,
-      "id": 6,
-      "order": 5,
-      "title": "Code Review ***"
+      "can_create_task":true,
+      "id":28,
+      "order":2,
+      "title":"Doing"
+    },
+    {
+      "can_create_task":false,
+      "id":31,
+      "order":3,
+      "title":"Done"
+    },
+    {
+      "can_create_task":false,
+      "id":32,
+      "order":4,
+      "title":"Code Review - TEST"
     }
   ],
-  "success": true
+  "success":true
 }
 ```
 
@@ -361,13 +380,13 @@ The API will return five error types when requests fail:
 
 ```
 curl -X DELETE \
-  https://kanban-backend-fsnd.herokuapp.com/phases/6 \
+  https://kanban-backend-fsnd.herokuapp.com/phases/32 \
   -H 'Authorization: Bearer <TOKEN> '
 ```
 
 ```
 {
-  "phase_deleted": 6,
+  "phase_deleted": 32,
   "success": true
 }
 ```
@@ -388,24 +407,24 @@ curl -X GET \
 
 ```
 {
-  "success": true,
-  "tasks": [
+  "success":true,
+  "tasks":[
     {
-      "description": null,
-      "due_date": null,
-      "id": 4,
-      "order": 1,
-      "phase_id": 1,
-      "title": "Back 3",
-      "user_id": "auth0|5f8b7cda4361420078edc8a3"
+      "description":null,
+      "due_date":null,
+      "id":36,
+      "order":1,
+      "phase_id":27,
+      "title":"Task 2",
+      "user_id":"auth0|5f8b7cda4361420078edc8a3"
     },
     {
-      "description": null,
-      "due_date": null,
-      "id": 1,
-      "order": 1,
-      "phase_id": 2,
-      "title": "Test to do",
+      "description":null,
+      "due_date":"Mon, 22 Feb 2021 00:00:00 GMT",
+      "id":35,
+      "order":1,
+      "phase_id":28,
+      "title":"Task 1",
       "user_id":"auth0|5f8b7cda4361420078edc8a3"
     }
   ]
@@ -422,21 +441,21 @@ curl -X GET \
 
 ```
 curl -X GET \
-  https://kanban-backend-fsnd.herokuapp.com/phases/1/tasks \
+  https://kanban-backend-fsnd.herokuapp.com/phases/27/tasks \
   -H 'Authorization: Bearer <TOKEN>'
 ```
 
 ```
 {
-  "success": true,
-  "tasks": [
+  "success":true,
+  "tasks":[
     {
-      "description": null,
-      "due_date": null,
-      "id": 4,
-      "order": 1,
-      "phase_id": 1,
-      "title": "Back 3",
+      "description":null,
+      "due_date":null,
+      "id":36,
+      "order":1,
+      "phase_id":27,
+      "title":"Task 2",
       "user_id":"auth0|5f8b7cda4361420078edc8a3"
     }
   ]
@@ -463,21 +482,23 @@ curl -X GET \
     -H 'Authorization: Bearer <TOKEN>' \
     -H 'Content-Type: application/json' \
     -d '{
-      "phase_id": 1,
-      "title": "Test task 1 - phase 1"
+      "phase_id": 27,
+      "title": "Test task 1 - phase 27"
   }'
 ```
 
 ```
 {
-  "success": true,
-  "task": {
-    "description": null,
-    "due_date": null,
-    "id": 15,
-    "order": 2,
-    "phase_id": 1,
-    "title": "Test task 1 - phase 1",
+  "success":true,
+  "task":
+  {
+    "description":null,
+    "due_date":null,
+    "id":38,
+    "order":2,
+    "phase_id":27,
+    "title":
+    "Test task 1 - phase 27",
     "user_id":"auth0|5f8b7cda4361420078edc8a3"
   }
 }
@@ -494,7 +515,7 @@ curl -X GET \
 
 ```
   curl -X PATCH \
-    https://kanban-backend-fsnd.herokuapp.com/tasks/15 \
+    https://kanban-backend-fsnd.herokuapp.com/tasks/38 \
     -H 'Authorization: Bearer <TOKEN>' \
     -H 'Content-Type: application/json' \
     -d '{
@@ -505,33 +526,43 @@ curl -X GET \
 
 ```
 {
-  "success": true,
-  "task": {
-    "description": null,
-    "due_date": null,
-    "id": 15,
-    "order": 1,
-    "phase_id": 1,
-    "title": "Test task 1 - phase 1 ***",
-    "user_id": "auth0|5f8b7cda4361420078edc8a3"
+  "success":true,
+  "task":
+  {
+    "description":null,
+    "due_date":null,
+    "id":38,
+    "order":1,
+    "phase_id":27,
+    "title":"Test task 1 - phase 1 ***",
+    "user_id":"auth0|5f8b7cda4361420078edc8a3"
   },
   "tasks":[
     {
-      "description": null,
-      "due_date": null,
-      "id": 15,
-      "order": 1,
-      "phase_id": 1,
-      "title": "Test task 1 - phase 1 ***",
-      "user_id": "auth0|5f8b7cda4361420078edc8a3"
+      "description":null,
+      "due_date":null,
+      "id":38,
+      "order":1,
+      "phase_id":27,
+      "title":"Test task 1 - phase 1 ***",
+      "user_id":"auth0|5f8b7cda4361420078edc8a3"
     },
     {
-      "description": null,
-      "due_date": null,
-      "id": 4,
-      "order": 2,
-      "phase_id": 1,
-      "title": "Back 3",
+      "description":null,
+      "due_date":null,
+      "id":36,
+      "order":2,
+      "phase_id":27,
+      "title":"Task 2",
+      "user_id":"auth0|5f8b7cda4361420078edc8a3"
+    },
+    {
+      "description":null,
+      "due_date":"Mon, 22 Feb 2021 00:00:00 GMT",
+      "id":35,
+      "order":1,
+      "phase_id":28,
+      "title":"Task 1",
       "user_id":"auth0|5f8b7cda4361420078edc8a3"
     }
   ]
@@ -548,14 +579,14 @@ curl -X GET \
 
 ```
 curl -X DELETE \
-  https://kanban-backend-fsnd.herokuapp.com/tasks/15 \
+  https://kanban-backend-fsnd.herokuapp.com/tasks/38 \
   -H 'Authorization: Bearer <TOKEN> '
 ```
 
 ```
 {
   "success": true,
-  "task_deleted": 15
+  "task_deleted": 38
 }
 ```
 
