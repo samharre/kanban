@@ -1,0 +1,1268 @@
+{
+	"info": {
+		"_postman_id": "242d243c-7dc4-4172-87ab-9e64679dcd78",
+		"name": "kanban",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "public",
+			"item": [
+				{
+					"name": "/phases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"To Do - Test\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/phases",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"phases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/phases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"To Do - TEST PATCH\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/phases/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"phases",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/phases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains phases array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.phases).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/phases",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"phases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/phases-detail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains phases array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.phases).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/phases-detail",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"phases-detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/phases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/phases/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"phases",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phase_id\": 1,\n    \"title\": \"Task - Test\",\n    \"description\": \"Task - Test\",\n    \"priority\": \"high\",\n    \"order\": 1\n}"
+						},
+						"url": {
+							"raw": "{{host}}/tasks",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Task Test - PATCH\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/tasks/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains task array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.tasks).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tasks",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/phases/<id>/tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains task array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.tasks).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/phases/1/tasks",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"phases",
+								"1",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tasks/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "manager",
+			"item": [
+				{
+					"name": "/phases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Todo - Test\",\n    \"can_create_task\": false\n}"
+						},
+						"url": {
+							"raw": "{{host}}/phases",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"phases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/phases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"To Do - Test PATCH\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/phases/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"phases",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/phases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains phases array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.phases).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/phases",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"phases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/phases-detail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains phases array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.phases).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/phases-detail",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"phases-detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phase_id\": 1,\n    \"title\": \"Task's endpoints\",\n    \"description\": \"Implements endpoints GET, POST, PATCH and DELETE to tasks\",\n    \"priority\": \"high\",\n    \"order\": 1\n}"
+						},
+						"url": {
+							"raw": "{{host}}/tasks",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Task's endpoints - Test PATCH\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/tasks/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tasks",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/phases/<id>/tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/phases/1/tasks",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"phases",
+								"1",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tasks/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/phases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/phases/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"phases",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFtaGF5UUdIODhfbnF0Ql9jMFVPbyJ9.eyJpc3MiOiJodHRwczovL3NhbWhhcnJlLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjhiN2NkYTQzNjE0MjAwNzhlZGM4YTMiLCJhdWQiOlsia2FuYmFuIiwiaHR0cHM6Ly9zYW1oYXJyZS51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjE0NDUyMTI5LCJleHAiOjE2MTQ1Mzg1MjksImF6cCI6InBHb2N5TUk2bFFkTzNWM2dBZWRpVzdrU0lxOFpSRUpqIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTpwaGFzZXMiLCJkZWxldGU6dGFza3MiLCJwYXRjaDpwaGFzZXMiLCJwYXRjaDp0YXNrcyIsInBvc3Q6cGhhc2VzIiwicG9zdDp0YXNrcyJdfQ.4IK-Y5VUc8hMvCwMzXWRGUkSsNu18zrwVVAJDSL1-755Sd8CPApb__0KNMtSO8KLwqUJPJMpTW9PzIxMyjxFclK2oOMnsMF90XVq7oeeyBGzZhbhJ7c-SH66YRir5AMJyMpYMSJJwkWzsKbyZB6KUDc3TI57p0k20dnCqu-zhXO71WSk2vg4SL965k_n2cysoGkdwjo8uMeI5zxsprng4YyoVn2knUyWZejuMCpi-VguT-p3en0fVUzKafpDKCTTOVJj9aISArsd-RY765CLhNAQsNVN5IKW8Oizh5wSgMeCtnxiEl4-ptif2uI9z8JMbKf3Obhwp3vGfaCUs3n_fQ",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "team",
+			"item": [
+				{
+					"name": "/phases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"To Do - Test\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/phases",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"phases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/phases manager",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFtaGF5UUdIODhfbnF0Ql9jMFVPbyJ9.eyJpc3MiOiJodHRwczovL3NhbWhhcnJlLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjhiN2NkYTQzNjE0MjAwNzhlZGM4YTMiLCJhdWQiOlsia2FuYmFuIiwiaHR0cHM6Ly9zYW1oYXJyZS51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjE0NDUyMTI5LCJleHAiOjE2MTQ1Mzg1MjksImF6cCI6InBHb2N5TUk2bFFkTzNWM2dBZWRpVzdrU0lxOFpSRUpqIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTpwaGFzZXMiLCJkZWxldGU6dGFza3MiLCJwYXRjaDpwaGFzZXMiLCJwYXRjaDp0YXNrcyIsInBvc3Q6cGhhc2VzIiwicG9zdDp0YXNrcyJdfQ.4IK-Y5VUc8hMvCwMzXWRGUkSsNu18zrwVVAJDSL1-755Sd8CPApb__0KNMtSO8KLwqUJPJMpTW9PzIxMyjxFclK2oOMnsMF90XVq7oeeyBGzZhbhJ7c-SH66YRir5AMJyMpYMSJJwkWzsKbyZB6KUDc3TI57p0k20dnCqu-zhXO71WSk2vg4SL965k_n2cysoGkdwjo8uMeI5zxsprng4YyoVn2knUyWZejuMCpi-VguT-p3en0fVUzKafpDKCTTOVJj9aISArsd-RY765CLhNAQsNVN5IKW8Oizh5wSgMeCtnxiEl4-ptif2uI9z8JMbKf3Obhwp3vGfaCUs3n_fQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"To Do - Test\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/phases",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"phases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/phases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"To Do Test - PATCH\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/phases/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"phases",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/phases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains phases array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.phases).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/phases",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"phases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/phases-detail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains phases array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.phases).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/phases-detail",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"phases-detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phase_id\": 2,\n    \"title\": \"Task's endpoints\",\n    \"description\": \"Implements endpoints GET, POST, PATCH and DELETE to tasks\",\n    \"priority\": \"high\",\n    \"order\": 1\n}"
+						},
+						"url": {
+							"raw": "{{host}}/tasks",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Task's endpoints - Test PATCH\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/tasks/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tasks",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tasks",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/phases/<id>/tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/phases/1/tasks",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"phases",
+								"1",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tasks/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tasks",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/phases",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/phases/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"phases",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/phases manager",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFtaGF5UUdIODhfbnF0Ql9jMFVPbyJ9.eyJpc3MiOiJodHRwczovL3NhbWhhcnJlLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjhiN2NkYTQzNjE0MjAwNzhlZGM4YTMiLCJhdWQiOlsia2FuYmFuIiwiaHR0cHM6Ly9zYW1oYXJyZS51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjE0NDUyMTI5LCJleHAiOjE2MTQ1Mzg1MjksImF6cCI6InBHb2N5TUk2bFFkTzNWM2dBZWRpVzdrU0lxOFpSRUpqIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTpwaGFzZXMiLCJkZWxldGU6dGFza3MiLCJwYXRjaDpwaGFzZXMiLCJwYXRjaDp0YXNrcyIsInBvc3Q6cGhhc2VzIiwicG9zdDp0YXNrcyJdfQ.4IK-Y5VUc8hMvCwMzXWRGUkSsNu18zrwVVAJDSL1-755Sd8CPApb__0KNMtSO8KLwqUJPJMpTW9PzIxMyjxFclK2oOMnsMF90XVq7oeeyBGzZhbhJ7c-SH66YRir5AMJyMpYMSJJwkWzsKbyZB6KUDc3TI57p0k20dnCqu-zhXO71WSk2vg4SL965k_n2cysoGkdwjo8uMeI5zxsprng4YyoVn2knUyWZejuMCpi-VguT-p3en0fVUzKafpDKCTTOVJj9aISArsd-RY765CLhNAQsNVN5IKW8Oizh5wSgMeCtnxiEl4-ptif2uI9z8JMbKf3Obhwp3vGfaCUs3n_fQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/phases/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"phases",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFtaGF5UUdIODhfbnF0Ql9jMFVPbyJ9.eyJpc3MiOiJodHRwczovL3NhbWhhcnJlLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjhiN2Q2NzUzZDM0NzAwNmU5MTVmMTUiLCJhdWQiOlsia2FuYmFuIiwiaHR0cHM6Ly9zYW1oYXJyZS51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjE0NDUyMTc4LCJleHAiOjE2MTQ1Mzg1NzgsImF6cCI6InBHb2N5TUk2bFFkTzNWM2dBZWRpVzdrU0lxOFpSRUpqIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTp0YXNrcyIsInBhdGNoOnRhc2tzIiwicG9zdDp0YXNrcyJdfQ.oFxg77g1AUlFfZUXQj58X1fftvb29GIRJ3GWkPOnUnMbcgg5R5T-pe7ONHaSX_CJJPR8YuUdC1AqBVGpDmvvmGWRSkXhlBhK3g_ByNOul6CJkSTeEWKaShkmCyD8hFcl3UnAcmDtaD-MQ0dgjsIWR-okaeXZSXNullJByVehxUSakVolgm2AaOOcEs6HSyfXdAYaMSUPWrc8r-LakiGOhKJ0DmuhswmerPmDFba-qsDzPJzFAxGTi0S_kSjbEXA_lBPARKkYiMfCgFAhIl2Zp11sKaExtWrkRJYZ0rZ3lUH-gsRhB39FnX5qNp3S2QSQxsJsQGH0XfPK64M7oykaKg",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "localhost:5000"
+		}
+	]
+}
