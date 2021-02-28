@@ -140,7 +140,7 @@ def update_phase(jwt_payload, phase_id):
             for phase_reordered in phases:
                 phase.add_phase_to_session(phase_reordered)
 
-        phase.commit()
+        phase.update()
     except Exception:
         phase.rollback()
         print(sys.exc_info())

@@ -29,12 +29,18 @@ class Task(db.Model):
 
     def insert(self):
         db.session.add(self)
+        self.commit()
 
     def add_task_to_session(self, task):
         db.session.add(task)
+        self.commit()
+
+    def update(self):
+        self.commit()
 
     def delete(self):
         db.session.delete(self)
+        self.commit()
 
     def rollback(self):
         db.session.rollback()

@@ -162,7 +162,7 @@ def update_task(jwt_payload, task_id):
         print(sys.exc_info())
         abort(500)
     else:
-        task.commit()
+        task.update()
 
     tasks = list_tasks()
 

@@ -34,12 +34,18 @@ class Phase(db.Model):
     def insert(self):
         self.order = db.session.query(func.count(Phase.id)).scalar() + 1
         db.session.add(self)
+        self.commit()
 
     def add_phase_to_session(self, phase):
         db.session.add(phase)
+        self.commit()
+
+    def update(self):
+        self.commit()
 
     def delete(self):
         db.session.delete(self)
+        self.commit()
 
     def rollback(self):
         db.session.rollback()
