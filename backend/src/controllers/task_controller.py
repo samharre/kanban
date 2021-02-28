@@ -2,7 +2,10 @@ from flask import Blueprint, request, jsonify, abort
 from ..auth.auth import requires_auth, get_user_id
 from ..models.task import Task
 from ..models.phase import Phase
-from ..utils.task_utils import reorder_tasks_same_phase, reorder_tasks_diff_phases
+from ..utils.task_utils import (
+    reorder_tasks_same_phase,
+    reorder_tasks_diff_phases
+)
 import sys
 
 task_bp = Blueprint('task_controller', __name__)
@@ -23,7 +26,7 @@ def get_tasks():
             'success': True,
             'tasks': [task.serialize() for task in tasks]
         })
-    except:
+    except Exception:
         print(sys.exc_info())
         abort(500)
 
@@ -38,7 +41,7 @@ def get_tasks_per_phase(phase_id):
             'success': True,
             'tasks': [task.serialize() for task in tasks]
         })
-    except:
+    except Exception:
         print(sys.exc_info())
         abort(500)
 
@@ -78,12 +81,10 @@ def create_task(jwt_payload):
             user_id=jwt_payload['sub']
         )
         task.insert()
-    except:
+    except Exception:
         task.rollback()
         print(sys.exc_info())
         abort(500)
-    else:
-        task.commit()
 
     return jsonify({
         'success': True,
@@ -102,7 +103,8 @@ def update_task(jwt_payload, task_id):
     new_title = body.get('title')
     new_order = body.get('order')
 
-    if ('phase_id' in body and not new_phase_id) or ('title' in body and not new_title):
+    if ('phase_id' in body and not new_phase_id) \
+            or ('title' in body and not new_title):
         abort(422)
 
     if new_phase_id and not new_order:
@@ -132,7 +134,8 @@ def update_task(jwt_payload, task_id):
             task.due_date = body.get('due_date')
 
         tasks = []
-        if (new_order and new_order != prev_order) or (new_phase_id and new_phase_id != prev_phase_id):
+        if (new_order and new_order != prev_order) \
+                or (new_phase_id and new_phase_id != prev_phase_id):
             task.order = new_order
 
             if (new_phase_id and new_phase_id != prev_phase_id):
@@ -154,7 +157,7 @@ def update_task(jwt_payload, task_id):
             for task_reorderd in tasks:
                 task.add_task_to_session(task_reorderd)
 
-    except:
+    except Exception:
         task.rollback()
         print(sys.exc_info())
         abort(500)
@@ -191,12 +194,10 @@ def delete_task(jwt_payload, task_id):
         for task_reorderd in tasks:
             task.add_task_to_session(task_reorderd)
 
-    except:
+    except Exception:
         task.rollback()
         print(sys.exc_info())
         abort(500)
-    else:
-        task.commit()
 
     return jsonify({
         'success': True,

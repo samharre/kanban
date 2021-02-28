@@ -30,7 +30,7 @@ def reorder_phases(phase_id, prev_order, new_order):
 
 def check_title_phase_exists(title, phase_id=None):
     query = Phase.query.filter(Phase.title == title)
-    if phase_id != None:
+    if phase_id is not None:
         query = query.filter(Phase.id != phase_id)
     phase = query.all()
 

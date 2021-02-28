@@ -1,7 +1,15 @@
-from flask import Blueprint, request, jsonify, abort
+from flask import (
+    Blueprint,
+    request,
+    jsonify,
+    abort
+)
 from ..auth.auth import requires_auth
 from ..models.phase import Phase
-from ..utils.phase_utils import reorder_phases, check_title_phase_exists
+from ..utils.phase_utils import (
+    reorder_phases,
+    check_title_phase_exists
+)
 import sys
 
 phase_bp = Blueprint('phase_controller', __name__)
@@ -16,7 +24,7 @@ def get_phases():
             'success': True,
             'phases': [phase.serialize() for phase in phases]
         })
-    except:
+    except Exception:
         print(sys.exc_info())
         abort(500)
 
@@ -42,7 +50,7 @@ def get_phases_detail():
             'success': True,
             'phases': [phase.serialize_with_tasks() for phase in phases]
         })
-    except:
+    except Exception:
         print(sys.exc_info())
         abort(500)
 
@@ -81,8 +89,7 @@ def create_phase(jwt_payload):
             phase.can_create_task = body.get('can_create_task') or False
 
         phase.insert()
-        phase.commit()
-    except:
+    except Exception:
         phase.rollback()
         print(sys.exc_info())
         abort(500)
@@ -134,7 +141,7 @@ def update_phase(jwt_payload, phase_id):
                 phase.add_phase_to_session(phase_reordered)
 
         phase.commit()
-    except:
+    except Exception:
         phase.rollback()
         print(sys.exc_info())
         abort(500)
@@ -169,9 +176,7 @@ def delete_phase(jwt_payload, phase_id):
 
         for phase_reordered in phases:
             phase.add_phase_to_session(phase_reordered)
-
-        phase.commit()
-    except:
+    except Exception:
         phase.rollback()
         print(sys.exc_info())
         abort(500)
