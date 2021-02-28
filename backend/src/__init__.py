@@ -12,6 +12,10 @@ def create_app(config_name):
 
     CORS(app)
 
+    @app.route('/')
+    def index():
+        return jsonify({'message': 'Welcome to Kanban'})
+
     models.init_app(app)
     controllers.init_app(app)
 
