@@ -56,7 +56,7 @@ export TEST_DATABASE_URL='postgresql://localhost:5432/kanban_test'
 Once you have your virtual environment setup and running, install dependencies by running:
 
 ```
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 This will install all of the required packages within the `requirements.txt` file.
