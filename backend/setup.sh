@@ -1,6 +1,0 @@
-export AUTH0_DOMAIN='samharre.us.auth0.com'
-export AUTH0_SECRET='fJWv92e4uSEJd5Gkw0JozCyJY8ZB8BTWlfhQHoZH1Po-s3EiyRI9uzvzigPd3ScV'
-export API_AUDIENCE='kanban'
-export APP_SETTINGS='development'
-export DATABASE_URL='postgresql://localhost:5432/kanban'
-export TEST_DATABASE_URL='postgresql://localhost:5432/kanban_test'
